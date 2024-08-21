@@ -25,36 +25,36 @@ int SolveSquare (float a, float b, float c, float *adrs_x1, float *adrs_x2)  //ф
 {
     float discr;
     discr = b*b - 4*a*c;
-    if (Compare_Zero(discr))
+    if (Compare_Zero(a))
     {
-        *adrs_x1 = - b / (2*a);
-        return ONE_ROOT;
-    }
-    else if (discr < 0)
-    {
-        return NO_ROOTS;              //дискриминант < 0, нет корней
-    }
-    else
-    {
-        if (Compare_Zero(a))
+        if (Compare_Zero(b))
         {
-            if (Compare_Zero(b))
+            if (Compare_Zero(c))
             {
-                if (Compare_Zero(c))
-                {
-                    return INFINITY_ROOTS;         //a = b = c = 0, любой корень
-                }
-                else
-                {
-                    return NO_ROOTS;         //a = 0, b = 0, c != 0, нет корней
-                }
+                return INFINITY_ROOTS;         //a = b = c = 0, любой корень
             }
             else
             {
-                *adrs_x1 = - c / b;
-                return ONE_ROOT;          //a = 0, b != 0,  один корень
+                return NO_ROOTS;         //a = 0, b = 0, c != 0, нет корней
             }
+        }
+        else
+        {
+            *adrs_x1 = - c / b;
+            return ONE_ROOT;          //a = 0, b != 0,  один корень
+        }
 
+    }
+    else
+    {
+        if (Compare_Zero(discr))
+        {
+            *adrs_x1 = - b / (2*a);
+            return ONE_ROOT;
+        }
+        else if (discr < 0)
+        {
+            return NO_ROOTS;              //дискриминант < 0, нет корней
         }
         else
         {
@@ -64,6 +64,7 @@ int SolveSquare (float a, float b, float c, float *adrs_x1, float *adrs_x2)  //ф
         }
     }
 }
+
 
 void printRoots(int nRoots, float x1, float x2)
 {
@@ -82,6 +83,28 @@ void printRoots(int nRoots, float x1, float x2)
     }
 }
 
+
+//Начало тестирования
+
+int CheckTest(int nTest, float a, float b, float c, float x1Expected, float x2Expected, int nRootsExpected)
+{
+    float x1 = 0, x2 = 0;
+    int nRoots = SolveSquare (a, b, c, &x1, &x2);
+    if (nRoots != nRootsExpected || x1 != x1Expected || x2 != x2Expected)
+    {
+        printf ("Error Test %d, a = %g, b = %g, c = %g, x1 = %g, x2 = %g, nRoot = %d \n"
+                "Expected: x1 = %g, x2 = %g, nRoots = %d \n",
+                nTest, a, b, c, x1, x2, nRoots,
+                x1Expected, x2Expected, nRootsExpected);
+    }
+    else
+    {
+        printf("All good \n");
+    }
+}
+
+//Конец тестирования
+
 int main(void)
 {
     float a, b, c, x1, x2;
@@ -89,21 +112,14 @@ int main(void)
     scanf ("%g %g %g", &a, &b, &c) ;
     x1 = x2 = 0;
     nRoots = SolveSquare (a, b, c, &x1, &x2);
-    printRoots(nRoots, x1, x2);
+    printRoots (nRoots, x1, x2);
+    CheckTest(0, 1.0, 2.0, 1.0, -1.0, 0.0, ONE_ROOT);
+    CheckTest(1, 1.0, 2.0, 3.0, 0.0, 0.0, NO_ROOTS);
+    CheckTest(2, 0.0, 2.0, 1.0, -0.5, 0.0, ONE_ROOT);
+    CheckTest(3, 1.0, 3.0, 2.0, -1.0, -2.0, TWO_ROOTS);
+    CheckTest(4, 0.0, 0.0, 0.0, 0.0, 0.0, INFINITY_ROOTS);
+    CheckTest(5, 0.0, 0.0, 5.0, 0.0, 0.0, NO_ROOTS);
+    float a1 = 0;
+    a1 = a1 * 4;
+    printf ("%g", a1);
 }
-
-
-
-
-
-
-
-
-int CheckTest(int nTest, float a, float b, float c, float x1Expected, float x2Expected, int nRootsExpected)
-{
-    float x1 = 0, x2 = 0;
-    int nRoots = SolveSquare (a, b, c, &x1, &x2);
-    //if (nRoots != nRootsExpected
-}
-
-
