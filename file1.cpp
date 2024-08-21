@@ -27,11 +27,12 @@ int SolveSquare (float a, float b, float c, float *adrs_x1, float *adrs_x2)  //ф
     discr = b*b - 4*a*c;
     if (Compare_Zero(discr))
     {
-        return - b / (2*a);
+        *adrs_x1 = - b / (2*a);
+        return ONE_ROOT;
     }
     else if (discr < 0)
     {
-        return NO_ROOTS;                //дискриминант < 0, нет корней
+        return NO_ROOTS;              //дискриминант < 0, нет корней
     }
     else
     {
@@ -70,9 +71,9 @@ void printRoots(int nRoots, float x1, float x2)
     {
         case NO_ROOTS: printf ("No solutions \n");
                 break;
-        case ONE_ROOT: printf ("%g \n", x1);
+        case ONE_ROOT: printf ("One solution %g \n", x1);
                 break;
-        case TWO_ROOTS: printf ("%g %g \n", x1, x2);
+        case TWO_ROOTS: printf ("Two solutions %g %g \n", x1, x2);
                 break;
         case INFINITY_ROOTS: printf ("Any solution \n");
                 break;
