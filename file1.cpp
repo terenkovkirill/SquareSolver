@@ -8,9 +8,9 @@ const int ONE_ROOT = 1;
 const int TWO_ROOTS = 2;
 const int INFINITY_ROOTS = 3;
 
-int Compare_Zero(float number)
+int Compare_Num(float num1, float num2)
 {
-    if (abs(number) < E)
+    if (abs(num1 - num2) < E)
     {
         return 1;                //дискриминант < 0, нет корней
     }
@@ -21,15 +21,16 @@ int Compare_Zero(float number)
 
 }
 
+
 int SolveSquare (float a, float b, float c, float *adrs_x1, float *adrs_x2)  //функция счёта корней
 {
     float discr;
     discr = b*b - 4*a*c;
-    if (Compare_Zero(a))
+    if (Compare_Num(a, 0))
     {
-        if (Compare_Zero(b))
+        if (Compare_Num(b, 0))
         {
-            if (Compare_Zero(c))
+            if (Compare_Num(c, 0))
             {
                 return INFINITY_ROOTS;         //a = b = c = 0, любой корень
             }
@@ -47,7 +48,7 @@ int SolveSquare (float a, float b, float c, float *adrs_x1, float *adrs_x2)  //ф
     }
     else
     {
-        if (Compare_Zero(discr))
+        if (Compare_Num(discr, 0))
         {
             *adrs_x1 = - b / (2*a);
             return ONE_ROOT;
@@ -90,7 +91,7 @@ int CheckTest(int nTest, float a, float b, float c, float x1Expected, float x2Ex
 {
     float x1 = 0, x2 = 0;
     int nRoots = SolveSquare (a, b, c, &x1, &x2);
-    if (nRoots != nRootsExpected || x1 != x1Expected || x2 != x2Expected)
+    if (nRoots != nRootsExpected || not(Compare_Num(x1, x1Expected)) || not(Compare_Num(x2, x2Expected))
     {
         printf ("Error Test %d, a = %g, b = %g, c = %g, x1 = %g, x2 = %g, nRoot = %d \n"
                 "Expected: x1 = %g, x2 = %g, nRoots = %d \n",
