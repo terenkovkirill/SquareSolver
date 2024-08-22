@@ -131,19 +131,17 @@ int CheckTest(struct CheckData test)   //функция тестирования
 
 void AllTests()
 {
-    struct CheckData test1 = {.a = 1.0, .b = 2.0, .c = 1.0, .x1Expected = -1.0, .x2Expected = 0.0, .nRootsExpected = ONE_ROOT, .nTest = 1};
-    struct CheckData test2 = {.a = 1.0, .b = 2.0, .c = 3.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = NO_ROOTS, .nTest = 2};
-    struct CheckData test3 = {.a = 0.0, .b = 2.0, .c = 1.0, .x1Expected = -0.5, .x2Expected = 0.0, .nRootsExpected = ONE_ROOT, .nTest = 3};
-    struct CheckData test4 = {.a = 1.0, .b = 3.0, .c = 2.0, .x1Expected = -1.0, .x2Expected = -2.0, .nRootsExpected = TWO_ROOTS, .nTest = 4};
-    struct CheckData test5 = {.a = 0.0, .b = 0.0, .c = 0.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = INFINITY_ROOTS, .nTest = 5};
-    struct CheckData test6 = {.a = 0.0, .b = 0.0, .c = 5.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = NO_ROOTS, .nTest = 6};
-    CheckTest(test1);
-    CheckTest(test2);
-    CheckTest(test3);
-    CheckTest(test4);
-    CheckTest(test5);
-    CheckTest(test6);
-
+    struct CheckData test[] = {{.a = 1.0, .b = 2.0, .c = 1.0, .x1Expected = -1.0, .x2Expected = 0.0, .nRootsExpected = ONE_ROOT, .nTest = 1},
+                                {.a = 1.0, .b = 2.0, .c = 3.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = NO_ROOTS, .nTest = 2},
+                                {.a = 0.0, .b = 2.0, .c = 1.0, .x1Expected = -0.5, .x2Expected = 0.0, .nRootsExpected = ONE_ROOT, .nTest = 3},
+                                {.a = 1.0, .b = 3.0, .c = 2.0, .x1Expected = -1.0, .x2Expected = -2.0, .nRootsExpected = TWO_ROOTS, .nTest = 4},
+                                {.a = 0.0, .b = 0.0, .c = 0.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = INFINITY_ROOTS, .nTest = 5},
+                                {.a = 0.0, .b = 0.0, .c = 5.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = NO_ROOTS, .nTest = 6}};
+    int n = sizeof(test) / sizeof(test[0]);
+    for (int i = 0,  i < n, i++)
+    {
+        CheckTest(test[i]);
+    }
 }
 
 
