@@ -3,10 +3,7 @@
 #include <math.h>
 
 const float Eps = 0.0001;
-const int NO_ROOTS = 0;
-const int ONE_ROOT = 1;
-const int TWO_ROOTS = 2;
-const int INFINITY_ROOTS = 3;
+enum direct {NO_ROOTS = 0, ONE_ROOT = 1, TWO_ROOTS = 2, INFINITY_ROOTS = 3};
 
 struct CheckData
 {
@@ -15,12 +12,36 @@ struct CheckData
     int nRootsExpected, nTest;
 };
 
-
 int CheckTest(CheckData test);
 int CompareNum(double num1, double num2);
-int SolveSquare (double a, double b, double c, double *adrsx1, double *adrsx2);
+int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2);
 void printRoots(int nRoots, double x1, double x2);
+void AllTests();
+void InputData (double *a, double *b, double *c);
 
+int main(void)
+{
+    double a, b, c, x1, x2;
+    a = b = c = 0;
+    int nRoots;
+    InputData (&a, &b, &c);
+    // TODO: написать безопасную функцию для ввода чисел
+    x1 = x2 = 0;
+    nRoots = SolveSquare (a, b, c, &x1, &x2);
+    printRoots (nRoots, x1, x2);
+    AllTests();
+}
+
+
+void InputData (double *adrs_a, double *adrs_b, double *adrs_c)
+{
+    printf ("Пожалуйста, введите 3 числа \n");
+    int x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
+    if (x != 3)
+    {
+        printf ("Вы ввели недостаточно чисел \n");
+    }
+}
 
 int CompareNum(double num1, double num2)
 {
@@ -28,29 +49,25 @@ int CompareNum(double num1, double num2)
 }
 
 
-int SolveSquare (double a, double b, double c, double *adrsx1, double *adrsx2)  //функция счёта корней
+int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
 {
     // TODO: написать проверки через assert для указателей
     double discr;
     discr = b*b - 4*a*c;
+    assert (adrs_x1 != NULL);
+    assert (adrs_x2 != NULL);
+    assert (adrs_x1 != adrs_x2);
     if (CompareNum(a, 0))
     {
         if (CompareNum(b, 0))
         {
         // TODO: прочитать что такое тернарный оператор
-            if (CompareNum(c, 0))
-            {
-                return INFINITY_ROOTS;         //a = b = c = 0, любой корень
-            }
-            else
-            {
-                return NO_ROOTS;         //a = 0, b = 0, c != 0, нет корней
-            }
+            return CompareNum(c, 0) ? INFINITY_ROOTS : NO_ROOTS;
         }
         else
         {
-            *adrsx1 = - c / b;
-            return ONE_ROOT;          //a = 0, b != 0,  один корень
+            *adrs_x1 = - c / b;
+            return ONE_ROOT;
         }
 
     }
@@ -58,18 +75,18 @@ int SolveSquare (double a, double b, double c, double *adrsx1, double *adrsx2)  
     {
         if (CompareNum(discr, 0))
         {
-            *adrsx1 = - b / (2*a);
+            *adrs_x1 = - b / (2*a);
             return ONE_ROOT;
         }
         else if (discr < 0)
         {
-            return NO_ROOTS;              //дискриминант < 0, нет корней
+            return NO_ROOTS;
         }
         else
         {
-            *adrsx1 = (- b + sqrt(discr)) / (2*a);
-            *adrsx2 = (-b - sqrt(discr)) / (2*a);
-            return TWO_ROOTS;             //a != 0  два корня
+            *adrs_x1 = (- b + sqrt(discr)) / (2*a);
+            *adrs_x2 = (-b - sqrt(discr)) / (2*a);
+            return TWO_ROOTS;
         }
     }
 }
@@ -77,7 +94,7 @@ int SolveSquare (double a, double b, double c, double *adrsx1, double *adrsx2)  
 
 void printRoots(int nRoots, double x1, double x2)
 {
-    switch(nRoots)                     /*перебор вариантов переменной nRoots*/
+    switch(nRoots)
     {
         case NO_ROOTS: printf ("No solutions \n");
                 break;
@@ -95,7 +112,7 @@ void printRoots(int nRoots, double x1, double x2)
 
 //Начало тестирования
 
-int CheckTest(CheckData test)   //функция тестирования
+int CheckTest(struct CheckData test)   //функция тестирования
 {
     double x1 = 0, x2 = 0;
     int nRoots = SolveSquare (test.a, test.b, test.c, &x1, &x2);
@@ -126,23 +143,23 @@ void AllTests()
     CheckTest(test4);
     CheckTest(test5);
     CheckTest(test6);
+
 }
 
 
 //Конец тестирования
 
-int main(void)
-{
-    double a, b, c, x1, x2;
-    int nRoots;
-    // TODO: написать безопасную функцию для ввода чисел
-    int x = scanf ("%lg %lg %lg", &a, &b, &c) ;
-    x1 = x2 = 0;
-    nRoots = SolveSquare (a, b, c, &x1, &x2);
-    printRoots (nRoots, x1, x2);
-    AllTests();
-}
 
-//нужно объявить переменные вначале
-// TODO: выбрать один способ написания имен функций и переменных
 //функция enum
+
+
+/*
+1 Написал безопасную функцию ввода
+2 Вроде как, проверил, что переменные везде объявлены
+3 Написал проверки через assert, используя NULL
+4 Выбрал единый способ написания имён функций и переменных
+5 Написал тип перечисления enum
+6 Заменил один if на тернарный оператор
+7
+*/
+
