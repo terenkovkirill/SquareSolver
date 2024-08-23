@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 
+
 const float Eps = 0.0001;
 enum direct {NO_ROOTS = 0, ONE_ROOT = 1, TWO_ROOTS = 2, INFINITY_ROOTS = 3};
 
@@ -12,10 +13,11 @@ struct CheckData
     int nRootsExpected, nTest;
 };
 
+int CleanAndCheckBuffer();
 int CheckTest(CheckData test);
 int CompareNum(double num1, double num2);
 int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2);
-void printRoots(int nRoots, double x1, double x2);
+void PrintRoots(int nRoots, double x1, double x2);
 void AllTests();
 void InputData (double *a, double *b, double *c);
 int getchar(void);
@@ -26,26 +28,26 @@ int main(void)
     int nRoots;
     InputData (&a, &b, &c);
     nRoots = SolveSquare (a, b, c, &x1, &x2);
-    printRoots (nRoots, x1, x2);
+    PrintRoots (nRoots, x1, x2);
     AllTests();
 }
 
 
-int CleanBuffer()
+int CleanAndCheckBuffer()
 {
     int el = getchar();
     while (el != '\n')
     {
-        if (isspace(el) == 0)
-       //isspace() = 0 при считывании непробельного символа
-        {
+        if (isspace(el) == 0)   //isspace() = 0 при считывании непробельного символа
             //printf("\n %d \n", el);
             while (el != '\n')
             {
-                el = getchar();
+                while (el != '\n')
+                {
+                    el = getchar();
+                }
+                return 0;
             }
-            return 0;
-        }
         el = getchar();
     }
     return 1;
@@ -54,12 +56,17 @@ int CleanBuffer()
 
 void InputData (double *adrs_a, double *adrs_b, double *adrs_c)
 {
+    assert (adrs_a != NULL);
+    assert (adrs_b != NULL);
+    assert (adrs_c != NULL);
+    assert (adrs_a != adrs_b);
+    assert (adrs_a != adrs_c);
+    assert (adrs_b != adrs_c);
     printf ("Please, print 3 numbers \n");
     int x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
 
-    while ((x == 3) * CleanBuffer() != 1)
+    while (!((x == 3) && CleanAndCheckBuffer()))
     {
-        //printf("%d\n", x);
         printf ("Please, print 3 numbers again \n");
         x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
     }
@@ -73,11 +80,11 @@ int CompareNum(double num1, double num2)
 
 int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
 {
-    double discr;
-    discr = b*b - 4*a*c;
     assert (adrs_x1 != NULL);
     assert (adrs_x2 != NULL);
     assert (adrs_x1 != adrs_x2);
+    double discr;
+    discr = b*b - 4*a*c;
     if (CompareNum(a, 0))
     {
         if (CompareNum(b, 0))
@@ -113,7 +120,7 @@ int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
 }
 
 
-void printRoots(int nRoots, double x1, double x2)
+void PrintRoots(int nRoots, double x1, double x2)
 {
     switch(nRoots)
     {
@@ -130,8 +137,6 @@ void printRoots(int nRoots, double x1, double x2)
     }
 }
 
-
-//Начало тестирования
 
 int CheckTest(struct CheckData test)   //функция тестирования
 {
@@ -164,25 +169,11 @@ void AllTests()
         CheckTest(test[i]);
     }
 }
+//Заменил один if на тернарный оператор
 
-
-//Конец тестирования
-
-
-//функция enum
-
-
-/*
-1 Написал безопасную функцию ввода
-3 Написал проверки через assert, используя NULL
-4 Выбрал единый способ написания имён функций и переменных
-5 Написал тип перечисления enum
-6 Заменил один if на тернарный оператор
-7 Сделал массив
-8 Всё ли я закинул в
-*/
+//Всё ли я закинул в
 
 
 
 
-///tttt
+
