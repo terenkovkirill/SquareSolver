@@ -20,7 +20,6 @@ int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
 void PrintRoots(int nRoots, double x1, double x2);
 void AllTests();
 void InputData (double *a, double *b, double *c);
-int getchar(void);
 
 int main(void)
 {
@@ -41,13 +40,13 @@ int CleanAndCheckBuffer()
         if (isspace(el) == 0)   //isspace() = 0 при считывании непробельного символа
             //printf("\n %d \n", el);
             while (el != '\n')
+        {
+            while (el != '\n')
             {
-                while (el != '\n')
-                {
-                    el = getchar();
-                }
-                return 0;
+                el = getchar();
             }
+            return 0;
+        }
         el = getchar();
     }
     return 1;
@@ -64,8 +63,7 @@ void InputData (double *adrs_a, double *adrs_b, double *adrs_c)
     assert (adrs_b != adrs_c);
     printf ("Please, print 3 numbers \n");
     int x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
-
-    while (!((x == 3) && CleanAndCheckBuffer()))
+    while (((x == 3) * (CleanAndCheckBuffer())) == 0)
     {
         printf ("Please, print 3 numbers again \n");
         x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
@@ -169,9 +167,7 @@ void AllTests()
         CheckTest(test[i]);
     }
 }
-//Заменил один if на тернарный оператор
-
-//Всё ли я закинул в
+//Всё ли из struct закинул в функции ?
 
 
 
