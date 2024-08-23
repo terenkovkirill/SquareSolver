@@ -18,28 +18,50 @@ int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
 void printRoots(int nRoots, double x1, double x2);
 void AllTests();
 void InputData (double *a, double *b, double *c);
+int getchar(void);
 
 int main(void)
 {
-    double a, b, c, x1, x2;
-    a = b = c = 0;
+    double a = 0, b = 0, c = 0, x1 = 0, x2 = 0;
     int nRoots;
     InputData (&a, &b, &c);
-    // TODO: написать безопасную функцию для ввода чисел
-    x1 = x2 = 0;
     nRoots = SolveSquare (a, b, c, &x1, &x2);
     printRoots (nRoots, x1, x2);
     AllTests();
 }
 
 
+int CleanBuffer()
+{
+    int el = getchar();
+    while (el != '\n')
+    {
+        if (isspace(el) == 0)
+       //isspace() = 0 при считывании непробельного символа
+        {
+            //printf("\n %d \n", el);
+            while (el != '\n')
+            {
+                el = getchar();
+            }
+            return 0;
+        }
+        el = getchar();
+    }
+    return 1;
+
+}
+
 void InputData (double *adrs_a, double *adrs_b, double *adrs_c)
 {
-    printf ("Пожалуйста, введите 3 числа \n");
+    printf ("Please, print 3 numbers \n");
     int x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
-    if (x != 3)
+
+    while ((x == 3) * CleanBuffer() != 1)
     {
-        printf ("Вы ввели недостаточно чисел \n");
+        //printf("%d\n", x);
+        printf ("Please, print 3 numbers again \n");
+        x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
     }
 }
 
@@ -51,7 +73,6 @@ int CompareNum(double num1, double num2)
 
 int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
 {
-    // TODO: написать проверки через assert для указателей
     double discr;
     discr = b*b - 4*a*c;
     assert (adrs_x1 != NULL);
@@ -96,14 +117,14 @@ void printRoots(int nRoots, double x1, double x2)
 {
     switch(nRoots)
     {
-        case NO_ROOTS: printf ("No solutions \n");
-                break;
-        case ONE_ROOT: printf ("One solution %g \n", x1);
-                break;
+        case NO_ROOTS:  printf ("No solutions \n");
+                        break;
+        case ONE_ROOT:  printf ("One solution %g \n", x1);
+                        break;
         case TWO_ROOTS: printf ("Two solutions %g %g \n", x1, x2);
-                break;
-        case INFINITY_ROOTS: printf ("Any solution \n");
-                break;
+                        break;
+        case INFINITY_ROOTS:    printf ("Any solution \n");
+                                break;
         default:    printf ("main(): ERROR: nRoots = %d \n", nRoots);
                     break;
     }
@@ -133,11 +154,11 @@ void AllTests()
 {
     const int nTests = 6;
     struct CheckData test[nTests] = {{.a = 1.0, .b = 2.0, .c = 1.0, .x1Expected = -1.0, .x2Expected = 0.0, .nRootsExpected = ONE_ROOT, .nTest = 1},
-                                {.a = 1.0, .b = 2.0, .c = 3.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = NO_ROOTS, .nTest = 2},
-                                {.a = 0.0, .b = 2.0, .c = 1.0, .x1Expected = -0.5, .x2Expected = 0.0, .nRootsExpected = ONE_ROOT, .nTest = 3},
-                                {.a = 1.0, .b = 3.0, .c = 2.0, .x1Expected = -1.0, .x2Expected = -2.0, .nRootsExpected = TWO_ROOTS, .nTest = 4},
-                                {.a = 0.0, .b = 0.0, .c = 0.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = INFINITY_ROOTS, .nTest = 5},
-                                {.a = 0.0, .b = 0.0, .c = 5.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = NO_ROOTS, .nTest = 6}};
+                                     {.a = 1.0, .b = 2.0, .c = 3.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = NO_ROOTS, .nTest = 2},
+                                     {.a = 0.0, .b = 2.0, .c = 1.0, .x1Expected = -0.5, .x2Expected = 0.0, .nRootsExpected = ONE_ROOT, .nTest = 3},
+                                     {.a = 1.0, .b = 3.0, .c = 2.0, .x1Expected = -1.0, .x2Expected = -2.0, .nRootsExpected = TWO_ROOTS, .nTest = 4},
+                                     {.a = 0.0, .b = 0.0, .c = 0.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = INFINITY_ROOTS, .nTest = 5},
+                                     {.a = 0.0, .b = 0.0, .c = 5.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = NO_ROOTS, .nTest = 6}};
     for (int i = 0; i < nTests; i++)
     {
         CheckTest(test[i]);
@@ -153,10 +174,10 @@ void AllTests()
 
 /*
 1 Написал безопасную функцию ввода
-2 Вроде как, проверил, что переменные везде объявлены
 3 Написал проверки через assert, используя NULL
 4 Выбрал единый способ написания имён функций и переменных
 5 Написал тип перечисления enum
 6 Заменил один if на тернарный оператор
 7 Сделал массив
+8 Всё ли я закинул в
 */
