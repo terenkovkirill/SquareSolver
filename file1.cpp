@@ -131,14 +131,14 @@ int CheckTest(struct CheckData test)   //функция тестирования
 
 void AllTests()
 {
-    struct CheckData test[] = {{.a = 1.0, .b = 2.0, .c = 1.0, .x1Expected = -1.0, .x2Expected = 0.0, .nRootsExpected = ONE_ROOT, .nTest = 1},
+    const int nTests = 6;
+    struct CheckData test[nTests] = {{.a = 1.0, .b = 2.0, .c = 1.0, .x1Expected = -1.0, .x2Expected = 0.0, .nRootsExpected = ONE_ROOT, .nTest = 1},
                                 {.a = 1.0, .b = 2.0, .c = 3.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = NO_ROOTS, .nTest = 2},
                                 {.a = 0.0, .b = 2.0, .c = 1.0, .x1Expected = -0.5, .x2Expected = 0.0, .nRootsExpected = ONE_ROOT, .nTest = 3},
                                 {.a = 1.0, .b = 3.0, .c = 2.0, .x1Expected = -1.0, .x2Expected = -2.0, .nRootsExpected = TWO_ROOTS, .nTest = 4},
                                 {.a = 0.0, .b = 0.0, .c = 0.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = INFINITY_ROOTS, .nTest = 5},
                                 {.a = 0.0, .b = 0.0, .c = 5.0, .x1Expected = 0.0, .x2Expected = 0.0, .nRootsExpected = NO_ROOTS, .nTest = 6}};
-    int n = sizeof(test) / sizeof(test[0]);
-    for (int i = 0,  i < n, i++)
+    for (int i = 0; i < nTests; i++)
     {
         CheckTest(test[i]);
     }
@@ -158,6 +158,5 @@ void AllTests()
 4 Выбрал единый способ написания имён функций и переменных
 5 Написал тип перечисления enum
 6 Заменил один if на тернарный оператор
-7
+7 Сделал массив
 */
-
