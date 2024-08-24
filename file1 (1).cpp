@@ -20,7 +20,6 @@ int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
 void PrintRoots(int nRoots, double x1, double x2);
 void AllTests();
 void InputData (double *a, double *b, double *c);
-int getchar(void);
 
 int main(void)
 {
@@ -39,6 +38,7 @@ int CleanAndCheckBuffer()
     while (el != '\n')
     {
         if (isspace(el) == 0)   //isspace() = 0 при считывании непробельного символа
+            while (el != '\n')
         {
             while (el != '\n')
             {
@@ -77,11 +77,11 @@ int CompareNum(double num1, double num2)
 
 int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
 {
-    double discr;
-    discr = b*b - 4*a*c;
     assert (adrs_x1 != NULL);
     assert (adrs_x2 != NULL);
     assert (adrs_x1 != adrs_x2);
+    double discr;
+    discr = b*b - 4*a*c;
     if (CompareNum(a, 0))
     {
         if (CompareNum(b, 0))
@@ -172,13 +172,3 @@ void AllTests()
 
 
 
-
-/*
-1 Написал безопасную функцию ввода
-3 Написал проверки через assert, используя NULL
-4 Выбрал единый способ написания имён функций и переменных
-5 Написал тип перечисления enum
-6 Заменил один if на тернарный оператор
-7 Сделал массив
-8 Всё ли я закинул в
-*/
