@@ -1,4 +1,3 @@
-#include <TXLib.h>
 #include <stdio.h>
 #include <math.h>
 #include "Head_Tests1.h"
@@ -7,7 +6,7 @@
 void RunTest (const struct CheckData *adrs_test)   //функция тестирования
 {
     double x1 = 0, x2 = 0;
-    int nRoots = SolveSquare ((adrs_test->a, adrs_test->b, adrs_test->c, &x1, &x2);
+    int nRoots = SolveSquare (adrs_test->a, adrs_test->b, adrs_test->c, &x1, &x2);
     if (nRoots != adrs_test->nRootsExpected || !(CompareNum(x1, adrs_test->x1Expected)) || !(CompareNum(x2, adrs_test->x2Expected)))
     {
         printf ("Error Test %d, a = %g, b = %g, c = %g, x1 = %g, x2 = %g, nRoot = %d \n"
@@ -17,27 +16,26 @@ void RunTest (const struct CheckData *adrs_test)   //функция тестирования
     }
     else
     {
-        printf("All good \n");
+        printf("All good %d \n", adrs_test->nTest);
     }
 }
 
 void CheckAllTests()         //функция с тестами
 {
-    FILE *test_file
-    test_file = fopen("TestNumbers.txt", "r")
-
-    //FILE *test_file;
-    //FILE *fopen ("TestNumbers", "r")
+    FILE *test_file = fopen("TestNumbers.txt", "r");
 
     int n = 0;
-    struct CheckData test;
-    int n = fscanf(test_file, "%lg %lg %lg %lg %lg %d %d \n", &test.a, &test.b, &test.c, &test.c, &test.x1Expected, &test.x2Expected, &test.nRootsExpected, &test.nTest);
 
-    while (n == 7)
+    while (true)
     {
         struct CheckData test;
-        int n = fscanf (test_file, "%lg %lg %lg %lg %lg %d %d \n", &test.a, &test.b, &test.c, &test.c, &test.x1Expected, &test.x2Expected, &test.nRootsExpected, &test.nTest);
+        n = fscanf (test_file, "%lg %lg %lg %lg %lg %d %d", &test.a, &test.b, &test.c, &test.x1Expected, &test.x2Expected, &test.nRootsExpected, &test.nTest);
+
+        if ( n != 7 )
+            break;
+
         RunTest (&test);
     }
 
+    fclose(test_file);
 }

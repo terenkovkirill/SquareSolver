@@ -1,4 +1,3 @@
-#include <TXLib.h>
 #include <stdio.h>
 #include <math.h>
 #include "Head_Solving1.h"
