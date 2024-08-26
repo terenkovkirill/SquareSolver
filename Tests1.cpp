@@ -4,17 +4,17 @@
 #include "Head_Tests1.h"
 #include "Head_Solving1.h"
 
-void RunTest (const struct CheckData test)   //функция тестирования
+void RunTest (const struct CheckData *adrs_test)   //функция тестирования
 {
     double x1 = 0, x2 = 0;
     // test->a = 10;
-    int nRoots = SolveSquare (test.a, test.b, test.c, &x1, &x2);
-    if (nRoots != test.nRootsExpected || !(CompareNum(x1, test.x1Expected)) || !(CompareNum(x2, test.x2Expected)))
+    int nRoots = SolveSquare ((adrs_test->a, adrs_test->b, adrs_test->c, &x1, &x2);
+    if (nRoots != adrs_test->nRootsExpected || !(CompareNum(x1, adrs_test->x1Expected)) || !(CompareNum(x2, adrs_test->x2Expected)))
     {
         printf ("Error Test %d, a = %g, b = %g, c = %g, x1 = %g, x2 = %g, nRoot = %d \n"
                 "Expected: x1 = %g, x2 = %g, nRoots = %d \n",
-                test.nTest, test.a, test.b, test.c, x1, x2, nRoots,
-                test.x1Expected, test.x2Expected, test.nRootsExpected);
+                adrs_test->nTest, adrs_test->a, adrs_test->b, adrs_test->c, x1, x2, nRoots,
+                adrs_test->x1Expected, adrs_test->x2Expected, adrs_test->nRootsExpected);
     }
     else
     {
