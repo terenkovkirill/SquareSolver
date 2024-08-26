@@ -43,7 +43,7 @@ void InputData (double *adrs_a, double *adrs_b, double *adrs_c)
         x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
     }
 }
-
+//1 a 1
 
 int CompareNum (double num1, double num2)
 {
