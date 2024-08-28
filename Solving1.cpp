@@ -6,18 +6,18 @@
 
 int CleanAndCheckBuffer()
 {
-    int el = getchar();
-    while (el != '\n')
+    int elem = getchar();
+    while (elem != '\n' && elem != EOF)
     {
-        if (isspace(el) == 0)   //isspace() возвращает 0 при считывании непробельного символа
+        if (isspace(elem) == 0)   //isspace() возвращает 0 при считывании непробельного символа
         {
-            while (el != '\n')
+            while (elem != '\n' && elem != EOF)
             {
-                el = getchar();
+                elem = getchar();
             }
             return 0;
         }
-        el = getchar();
+        elem = getchar();
     }
     return 1;
 
@@ -43,9 +43,9 @@ void InputData (double *adrs_a, double *adrs_b, double *adrs_c)
         x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
     }
 }
-//1 a 1
 
-int CompareNum (double num1, double num2)
+
+bool IsEqual (double num1, double num2)
 {
     return (fabs(num1 - num2) < Eps);
 }
@@ -59,12 +59,12 @@ int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
 
     double discr = b*b - 4*a*c;
 
-    if (CompareNum(a, 0))
+    if (IsEqual(a, 0))
     {
-        if (CompareNum(b, 0))
+        if (IsEqual(b, 0))
         {
         // TODO: прочитать что такое тернарный оператор
-            return CompareNum(c, 0) ? INFINITY_ROOTS : NO_ROOTS;
+            return IsEqual(c, 0) ? INFINITY_ROOTS : NO_ROOTS;
         }
         else
         {
@@ -75,7 +75,7 @@ int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
     }
     else
     {
-        if (CompareNum(discr, 0))
+        if (IsEqual(discr, 0))
         {
             *adrs_x1 = - b / (2*a);
             return ONE_ROOT;
