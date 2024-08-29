@@ -1,8 +1,8 @@
 #include <TXLib.h>
 #include <stdio.h>
 #include <math.h>
-#include "Head_Tests1.h"
-#include "Head_Solving1.h"
+#include "Tests.h"
+#include "Solving.h"
 
 void RunTest (const struct CheckData *adrs_test)
 {

@@ -1,8 +1,8 @@
 #include <TXLib.h>
 #include <stdio.h>
 #include <math.h>
-#include "Head_Solving1.h"
-#include "Head_Tests1.h"
+#include "Solving.h"
+#include "Tests.h"
 
 #define DEBUG
 

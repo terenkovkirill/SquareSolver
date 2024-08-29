@@ -1,7 +1,7 @@
 #include <TXLib.h>
 #include <stdio.h>
 #include <math.h>
-#include "Head_Solving1.h"
+#include "Solving.h"
 
 
 int CleanAndCheckBuffer()
@@ -50,7 +50,7 @@ bool IsEqual (double num1, double num2)
     return (fabs(num1 - num2) < Eps);
 }
 
-
+IsEqual(b, 0)
 int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
 {
     assert (adrs_x1 != NULL);
@@ -67,7 +67,7 @@ int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
         }
         else
         {
-            if (IsEqual(c, 0))
+            if (IsEqual(c / b, 0))
                 {
                     *adrs_x1 = 0;
                     return ONE_ROOT;
