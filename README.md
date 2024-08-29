@@ -38,8 +38,17 @@ main1.exe
 
 *  раздельная компиляция
 
-		
-![alt text](compilation.png)
+```bash
+cd Desktop
+cd SolveSquare
+g++ main.cpp -c -o main.o
+g++ Solving.cpp -c - o Solving.o
+g++ Tests.cpp -c -o Tests.o
+g++ main.o Solving.o Tests.o -o main.exe
+g++ main.exe
+main1.exe
+```
+
 
 
 ## Запуск тестов
