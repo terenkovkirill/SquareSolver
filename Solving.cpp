@@ -67,8 +67,16 @@ int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
         }
         else
         {
-            *adrs_x1 = - c / b;
-            return ONE_ROOT;
+            if (c / b == 0)
+                {
+                    *adrs_x1 = 0;
+                    return ONE_ROOT;
+                }
+            else
+                {
+                    *adrs_x1 = - c / b;
+                    return ONE_ROOT;
+                }
         }
 
     }
