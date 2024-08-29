@@ -10,7 +10,7 @@
 #ifndef TESTS1_H
 #define TESTS1_H
 #include <stdio.h>
-#include "Head_Solving1.h"
+#include "Solving.h"
 
 /// Ñòðóêòóðà, ñîäåðæàùàÿ òåñòîâûå äàííûå
 struct CheckData

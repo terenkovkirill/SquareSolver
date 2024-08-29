@@ -50,7 +50,7 @@ bool IsEqual (double num1, double num2)
     return (fabs(num1 - num2) < Eps);
 }
 
-IsEqual(b, 0)
+
 int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
 {
     assert (adrs_x1 != NULL);
