@@ -7,11 +7,11 @@
 int CleanAndCheckBuffer()
 {
     int elem = getchar();
-    while (elem != '\n' && elem != EOF)
+    while ((elem != '\n') && (elem != EOF))
     {
         if (isspace(elem) == 0)   //isspace() возвращает 0 при считывании непробельного символа
         {
-            while (elem != '\n' && elem != EOF)
+            while ((elem != '\n') && (elem != EOF))
             {
                 elem = getchar();
             }
@@ -37,10 +37,13 @@ void InputData (double *adrs_a, double *adrs_b, double *adrs_c)
 
     int x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
 
-    while (!((x == 3) && CleanAndCheckBuffer()))
+    if (x == 3)
     {
-        printf ("Please, print 3 numbers again \n");
-        x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
+        while (CleanAndCheckBuffer() == 0)
+        {
+            printf ("Please, print 3 numbers again \n");
+            x = scanf ("%lg %lg %lg", adrs_a, adrs_b, adrs_c);
+        }
     }
 }
 
@@ -68,15 +71,15 @@ int SolveSquare (double a, double b, double c, double *adrs_x1, double *adrs_x2)
         else
         {
             if (IsEqual(c / b, 0))
-                {
-                    *adrs_x1 = 0;
-                    return ONE_ROOT;
-                }
+            {
+                *adrs_x1 = 0;
+                return ONE_ROOT;
+            }
             else
-                {
-                    *adrs_x1 = - c / b;
-                    return ONE_ROOT;
-                }
+            {
+                *adrs_x1 = - c / b;
+                return ONE_ROOT;
+            }
         }
 
     }
